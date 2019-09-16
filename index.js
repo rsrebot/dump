@@ -56,7 +56,7 @@ const emailMatchesDomains = (email, domains) =>
       ) {
         companyWorkspaces.push(w);
       }
-      if (progress % 100 === 0) {
+      if (progress % 1000 === 0) {
         console.log(progress);
       }
     }
