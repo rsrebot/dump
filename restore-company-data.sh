@@ -1,19 +1,10 @@
+#! /bin/bash
+
+. ./config/destination.config
+
 set -e # stop running scrip on error
 
 read -p "Company to dump: " company
-
-read -p "Mongo host name and port [localhost:27017]: " dest_host
-dest_host=${dest_host:-localhost}
-
-read -p "Mongo user [admin]: " source_user
-source_user=${source_user:-admin}
-
-read -p "Mongo password: " source_pass
-
-read -p "Mongo auth db [admin]: " dest_auth_db
-dest_auth_db=${dest_auth_db:-admin}
-
-read -p "Mongo db (destination): " dest_db
 
 inserters=3 # number of inserters per collection
 

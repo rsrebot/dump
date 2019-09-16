@@ -1,31 +1,12 @@
+#! /bin/bash
+
+. ./config/source.config
+
 set -e # stop running scrip on error
 
 read -p "Company to dump: " company
 
-read -p "Workspace list [ws.txt]: " wsfile
-wsfile=${wsfile:-ws.txt}
-
-read -p "Mongo host name and port [localhost:27017]: " source_host
-source_host=${source_host:-localhost}
-
-read -p "Mongo user [admin]: " source_user
-source_user=${source_user:-admin}
-
-read -p "Mongo password: " source_pass
-
-read -p "Mongo auth db [admin]: " source_auth_db
-source_auth_db=${source_auth_db:-admin}
-
-read -p "Mongo db: " source_db
-
-read -p "Split murals in chuck of [200]: " murals_chunk
-murals_chunk=${murals_chunk:-200}
-
-read -p "Split profiles in chuck of [200]: " profiles_chunk
-profiles_chunk=${profiles_chunk:-200}
-
-read -p "Output dir [./$company]" output
-output=${output:-$company}
+output=$company
 
 echo
 echo  
