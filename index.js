@@ -56,6 +56,9 @@ const emailMatchesDomains = (email, domains) =>
       ) {
         companyWorkspaces.push(w);
       }
+      if (progress % 100 === 0) {
+        console.log(progress);
+      }
     }
     console.log(`Elapsed: ${Date.now() - t} ms.`);
     // console.log(companyWorkspaces);
