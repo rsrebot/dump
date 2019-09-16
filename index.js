@@ -10,12 +10,6 @@ const url = config.mongoUrl;
 const client = new MongoClient(url, { maxSocketTimeoutMS: 300000 });
 let db;
 
-const parseDomainFromEmail = addr => {
-  const parsed = emailAddresses.parseOneAddress(addr);
-
-  return parsed ? parsed.domain : null;
-};
-
 const emailMatchesDomains = (email, domains) =>
   domains.some(domain => {
     const regExp = new RegExp(`@(\\w{1,30}\\.)?${domain}(\\.\\w{2,3})?$`, "i");

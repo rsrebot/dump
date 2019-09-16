@@ -1,5 +1,7 @@
 #! /bin/bash
 
+# Dumps Workspaces, Rooms, Murals, Users, Activity, PendingInvitations and Chats for a given Company.
+
 . ./config/source.config
 
 set -e # stop running scrip on error
