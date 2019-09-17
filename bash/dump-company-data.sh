@@ -19,31 +19,31 @@ echo
 # workspaces
 workspaces=$(cat $wsfile | jq -R -s -c 'split("\n")' | jq -c '.[:-1]' | sed "s/\"/'/g")
 echo Dumping Workspaces ...
-time mongodump --host $source_host -u $source_user -p $source_pass -vvvvv -c profiles --query "{ username: {\$in: $workspaces }}" --authenticationDatabase $source_auth_db --db $source_db --sslAllowInvalidCertificates --ssl --out $output/dump
+time mongodump --host $source_host -u $source_user -p $source_pass -vvvvv -c profiles --query "{ username: {\$in: $workspaces }}" --authenticationDatabase $source_auth_db --db $source_db --sslAllowInvalidCertificates --ssl --readPreference "{mode: 'secondary'}" --out $output/dump
 echo Exporting Workspaces ids ...
-time mongoexport --host $source_host -u $source_user -p $source_pass -vvvvv -c profiles --query "{ username: {\$in: $workspaces }}" --authenticationDatabase $source_auth_db --db $source_db --type json --sslAllowInvalidCertificates --ssl --fields "username,membersIndex" --out ./tempws.json
+time mongoexport --host $source_host -u $source_user -p $source_pass -vvvvv -c profiles --query "{ username: {\$in: $workspaces }}" --authenticationDatabase $source_auth_db --db $source_db --type json --sslAllowInvalidCertificates --ssl --fields "username,membersIndex" --readPreference "{mode: 'secondary'}" --out ./tempws.json
 echo Exported Workspaces: $workspaces
 echo
 
 # rooms
 echo Dumping Rooms ...
-time mongodump --host $source_host -u $source_user -p $source_pass -vvvvv -c rooms --query "{ ownerId: {\$in: $workspaces }}" --authenticationDatabase $source_auth_db --db $source_db --sslAllowInvalidCertificates --ssl --out $output/dump
+time mongodump --host $source_host -u $source_user -p $source_pass -vvvvv -c rooms --query "{ ownerId: {\$in: $workspaces }}" --authenticationDatabase $source_auth_db --db $source_db --sslAllowInvalidCertificates --ssl --readPreference "{mode: 'secondary'}" --out $output/dump
 echo Exporting Rooms Ids ...
-time mongoexport --host $source_host -u $source_user -p $source_pass -vvvvv -c rooms --query "{ ownerId: {\$in: $workspaces }}" --authenticationDatabase $source_auth_db --db $source_db --type json --sslAllowInvalidCertificates --ssl --fields "_id" --out ./temproom.json
+time mongoexport --host $source_host -u $source_user -p $source_pass -vvvvv -c rooms --query "{ ownerId: {\$in: $workspaces }}" --authenticationDatabase $source_auth_db --db $source_db --type json --sslAllowInvalidCertificates --ssl --fields "_id" --readPreference "{mode: 'secondary'}" --out ./temproom.json
 echo Rooms exported
 echo
 
 # murals
 echo Dumping Murals ...
-time mongodump --host $source_host -u $source_user -p $source_pass -vvvvv -c muralcontents --query "{ ownerId: {\$in: $workspaces }}" --authenticationDatabase $source_auth_db --db $source_db --sslAllowInvalidCertificates --ssl --out $output/dump
+time mongodump --host $source_host -u $source_user -p $source_pass -vvvvv -c muralcontents --query "{ ownerId: {\$in: $workspaces }}" --authenticationDatabase $source_auth_db --db $source_db --sslAllowInvalidCertificates --ssl --readPreference "{mode: 'secondary'}" --out $output/dump
 echo Exporting Murals Ids ...
-time mongoexport --host $source_host -u $source_user -p $source_pass -vvvvv -c muralcontents --query "{ ownerId: {\$in: $workspaces }}" --authenticationDatabase $source_auth_db --db $source_db --type json --sslAllowInvalidCertificates --ssl --fields "id" --out ./tempmural.json
+time mongoexport --host $source_host -u $source_user -p $source_pass -vvvvv -c muralcontents --query "{ ownerId: {\$in: $workspaces }}" --authenticationDatabase $source_auth_db --db $source_db --type json --sslAllowInvalidCertificates --ssl --fields "id" --readPreference "{mode: 'secondary'}" --out ./tempmural.json
 echo Murals Exported
 echo
 
 # pending invitations
 echo Dumping PendingInvitations ...
-mongodump --host $source_host -u $source_user -p $source_pass -vvvvv -c pendinginvitations --query "{ workspace: {\$in: $workspaces }}" --authenticationDatabase $source_auth_db --db $source_db --sslAllowInvalidCertificates --ssl --out $output/dump
+mongodump --host $source_host -u $source_user -p $source_pass -vvvvv -c pendinginvitations --query "{ workspace: {\$in: $workspaces }}" --authenticationDatabase $source_auth_db --db $source_db --sslAllowInvalidCertificates --ssl --readPreference "{mode: 'secondary'}" --out $output/dump
 echo PendingInvitations exported
 echo
 
@@ -60,7 +60,7 @@ do
   echo "Processing profiles [$i/$total] ..."
 
   echo Dumping Profiles ...
-  time mongodump --host $source_host -u $source_user -p $source_pass -vvvvv -c profiles --query "{ username: {\$in: $profiles }}" --authenticationDatabase $source_auth_db --db $source_db --sslAllowInvalidCertificates --ssl --out $output/profile_$i
+  time mongodump --host $source_host -u $source_user -p $source_pass -vvvvv -c profiles --query "{ username: {\$in: $profiles }}" --authenticationDatabase $source_auth_db --db $source_db --sslAllowInvalidCertificates --ssl --readPreference "{mode: 'secondary'}" --out $output/profile_$i
   echo Exported Profiles
   echo
   ((i=i+1))
@@ -83,10 +83,10 @@ do
   echo "Processing rooms to export activity [$i/$total] ..."
 
   echo Dumping Activity ...
-  time mongodump --host $source_host -u $source_user -p $source_pass -vvvvv -c activitySummary --query "{ mural: {\$in: $murals }}" --authenticationDatabase $source_auth_db --db $source_db --sslAllowInvalidCertificates --ssl --out $output/activity_$i
+  time mongodump --host $source_host -u $source_user -p $source_pass -vvvvv -c activitySummary --query "{ mural: {\$in: $murals }}" --authenticationDatabase $source_auth_db --db $source_db --sslAllowInvalidCertificates --ssl --readPreference "{mode: 'secondary'}" --out $output/activity_$i
   echo Exported Activity
   echo Dumping Chats
-  time mongodump --host $source_host -u $source_user -p $source_pass -vvvvv -c chats --query "{ mural: {\$in: $murals }}" --authenticationDatabase $source_auth_db --db $source_db --sslAllowInvalidCertificates --ssl --out $output/chat_$i
+  time mongodump --host $source_host -u $source_user -p $source_pass -vvvvv -c chats --query "{ mural: {\$in: $murals }}" --authenticationDatabase $source_auth_db --db $source_db --sslAllowInvalidCertificates --ssl --readPreference "{mode: 'secondary'}" --out $output/chat_$i
   echo Exported Chats
   echo
   ((i=i+1))
