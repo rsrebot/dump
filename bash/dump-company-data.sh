@@ -43,7 +43,7 @@ echo
 
 # pending invitations
 echo Dumping PendingInvitations ...
-mongodump --host $source_host -u $source_user -p $source_pass -vvvvv -c pendinginvitations --query "{ workspace: {\$in: $workspaces }}" --authenticationDatabase $source_auth_db --db $source_db --sslAllowInvalidCertificates --ssl --readPreference "{mode: 'secondary'}" --out $output/dump
+time mongodump --host $source_host -u $source_user -p $source_pass -vvvvv -c pendinginvitations --query "{ workspace: {\$in: $workspaces }}" --authenticationDatabase $source_auth_db --db $source_db --sslAllowInvalidCertificates --ssl --readPreference "{mode: 'secondary'}" --out $output/dump
 echo PendingInvitations exported
 echo
 
