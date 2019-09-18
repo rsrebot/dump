@@ -57,7 +57,7 @@ const emailMatchesDomains = (email, domains) =>
     console.log(`Elapsed: ${Date.now() - t} ms.`);
     // console.log(companyWorkspaces);
     fs.writeFileSync(
-      `${companyName}-workspaces.txt`,
+      `ws.txt`,
       companyWorkspaces.map(w => w.username).join("\n")
     );
     console.log(`Done`);
