@@ -8,4 +8,6 @@ workspaces=$(cat $wsfile | jq -R -s -c 'split("\n")' | jq -c '.[:-1]' | sed "s/\
 
 time mongoexport --host $source_host -u $source_user -p $source_pass -vvvvv -c muralcontents --query "{ ownerId: {\$in: $workspaces }}" --authenticationDatabase $source_auth_db --db $source_db --type json --sslAllowInvalidCertificates --ssl --readPreference "{mode: 'secondary'}" --out ./muralcontent.json
 
+time mongoexport --host $source_host -u $source_user -p $source_pass -vvvvv -c profiles  --authenticationDatabase $source_auth_db --db $source_db --type json --sslAllowInvalidCertificates --ssl  --out ./profiles.json
+
 echo DONE

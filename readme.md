@@ -12,7 +12,7 @@
   - `./dump-mural-content.sh` (This should take around 10 mins for 30K murals)
     It will take a while and generate `muralcontent.json`
   - `./process-content.sh`
-    This will run for some minutes and output: `./bash/ws-azure.txt` these are the workspaces to export from Azure
+    This will run for some minutes and output: `./bash/extra-assets.txt` these are the assets to copy from Azure (uploads) and `./bash/thumbnails.txt` these are thumbnails to copy from azure.
 
 ### Mongo
 
