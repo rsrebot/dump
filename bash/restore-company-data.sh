@@ -4,8 +4,6 @@
 
 set -e # stop running scrip on error
 
-read -p "Company to dump: " company
-
 inserters=3 # number of inserters per collection
 
 input=./$company

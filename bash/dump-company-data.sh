@@ -6,8 +6,6 @@
 
 set -e # stop running scrip on error
 
-read -p "Company to dump: " company
-
 output=$company
 
 echo
@@ -48,7 +46,7 @@ echo PendingInvitations exported
 echo
 
 # profiles
-cat tempws.json | jq -r '.membersIndex[]' | split -l $profiles_chunk
+cat tempws.json | jq -r '.membersIndex[]' | sort -u | split -l $profiles_chunk
 total=$(ls x* | wc -l)
 echo
 echo "Processing $total profiles in chunks of $profiles_chunk profiles"
