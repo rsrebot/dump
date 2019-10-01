@@ -1,10 +1,10 @@
 #! /bin/bash
 
-. ./config/destination.config
+. ../config/destination.config
 
 inserters=3 # number of inserters per collection
 
-input=./$company/global-templates/$source_db
+input=$input_dir/global-templates/$source_db
 
 mongorestore --host $dest_host -u $dest_user -p $dest_pass -vvvvv --authenticationDatabase $dest_auth_db --sslAllowInvalidCertificates --ssl --db $dest_db --numInsertionWorkersPerCollection $inserters $input
 

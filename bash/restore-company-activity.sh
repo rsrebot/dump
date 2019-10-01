@@ -1,20 +1,20 @@
 #! /bin/bash
 
-. ./config/destination.config
+. ../config/destination.config
 
 set -e # stop running scrip on error
 
 inserters=3 # number of inserters per collection
 
-input=./$company
+input=$input_dir
 
 # Activity
-total=$(ls $input/activity* | grep 'activity' | wc -l)
+total=$(ls $input/activity/activity* | grep 'activity' | wc -l)
 echo
 echo "Restoring $total activity chunks ..."
 
 i=0
-for f in $input/activity*
+for f in $input/activity/activity*
 do 
   echo "Restoring activity chunck [$i/$total] ..."
   for h in 1 2 3; 
@@ -28,12 +28,12 @@ echo Done restoring Activity
 echo
 
 # Chats
-total=$(ls $input/chat* | grep 'chat' | wc -l)
+total=$(ls $input/chats/chat* | grep 'chat' | wc -l)
 echo
 echo "Restoring $total chats chunks ..."
 
 i=0
-for f in $input/chat*
+for f in $input/chats/chat*
 do 
   echo "Restoring chat chunck [$i/$total] ..."
   mongorestore --host $dest_host -u $dest_user -p $dest_pass -vvvvv --authenticationDatabase $dest_auth_db --sslAllowInvalidCertificates --ssl --numInsertionWorkersPerCollection $inserters --db $dest_db $f/$source_db
@@ -42,4 +42,4 @@ do
 done
 echo Done restoring Chat
 
-echo "Restore for company $company finished"
+echo "Restore finished"
