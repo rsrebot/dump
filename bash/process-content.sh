@@ -12,7 +12,7 @@ while read line; do grep -wF "$line" thumbs.txt; done <  diff2.txt | tee thumbna
 
 # Avatars
 members="$(cat tempws.json | jq -r '.membersIndex[]' | sort -u | tr '\n' '|' | sed 's/|$//')"
-cat profiles.json | grep -v '"type":"organization"' | grep -v '$members' | sed -ne 's/.*"avatar":"\([^"?]*\).*/\1/p' | sed -e 's/https:\/\/murally.blob.core.windows.net:443\/uploads\///g' | grep -v 'https:' > avatars.txt
+grep -v '"type":"organization"' profiles.json | grep -v '$members' | sed -ne 's/.*"avatar":"\([^"?]*\).*/\1/p' | sed -e 's/https:\/\/murally.blob.core.windows.net:443\/uploads\///g' | grep -v 'https:' > avatars.txt
 
 # Remove temp files
 # rm ws1.txt ws2.txt diff.txt diff2.txt
