@@ -9,7 +9,7 @@
   "license": "ISC",
   "dependencies": {
     "dos-config": "^3.0.2",
-    "minimist": "^1.2.0",
+    "minimist": "^1.2.2",
     "mongodb": "^3.3.2"
   }
 }
